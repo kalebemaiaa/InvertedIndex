@@ -56,6 +56,10 @@ Trie::Trie() {
     this->allDocsList = new LinkedList<IntNode>();
 }
 
+Trie::~Trie() {
+    delete root;
+}
+
 std::vector<std::vector<unsigned char>> Trie::wordToVector(const std::string &word) {
     std::vector<std::vector<unsigned char>> utf8vector;
     size_t i = 0;
@@ -148,19 +152,6 @@ TrieNode *Trie::getWord(const std::string &word) {
 
 LinkedList<IndexNode> *Trie::queryWord(const std::string &word) {
     TrieNode *w = this->getWord(word);
-    if(w) {
-        auto p = [] (IndexNode *n1) {
-            // std::cout << n1->data;
-            auto x = [] (IntNode *n) {
-                std::cout << n->data;
-            };
-            std::cout << n1->docId << ": ";
-            n1->positions->print(x, true);
-            std::cout << std::endl;
-        };
-        w->getDocsList()->print(p);
-        // w->getDocsList()->getHead()->data->positions->print(p, true);
-    }
     return w ? w->getDocsList() : nullptr;
 }
 
@@ -264,6 +255,7 @@ void Trie::indexFile(std::string &fname) {
 
 void Trie::indexByFile(std::string &fname, std::string path) {
     std::ifstream file(fname);
+    std::cout << fname << std::endl;
     if (!file.is_open()) {
         std::cout << "O arquivo " << fname << " nao pode ser aberto!" << std::endl;
         return;

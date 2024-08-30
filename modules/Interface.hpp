@@ -44,6 +44,7 @@ public:
     Interface(Trie *database);
     LinkedList<IntNode> *query(Query query,  std::string *qryStr = nullptr);
     void listQueries(string fname, initializer_list<Query> queries);
+    void writeTest(string fname, Query query, string f_input, string path);
 };
 
 #endif // INTERFACE_HPP

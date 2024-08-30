@@ -1,5 +1,5 @@
 #include "Interface.hpp"
-#include "LinkedList.hpp"
+#include <fstream>
 
 // Query class implementation
 Query::Query(string word, string operation) : operation(operation)
@@ -212,5 +212,17 @@ void Interface::listQueries(string fname, initializer_list<Query> queries) {
         fprintf(fp, "]\n");
     }
 
+    fclose(fp);
+}
+
+void Interface::writeTest(string fname, Query q, string f_input, string path) {
+    this->database->indexByFile(f_input, path);
+    FILE *fp = fopen(fname.c_str(), "w");
+    LinkedList<IntNode> *result = query(q);
+    Node<IntNode> *h = result->getHead();
+    while(h){
+        fprintf(fp, "%i\n", h->data->data);
+        h = h->next;
+    }
     fclose(fp);
 }

@@ -44,4 +44,5 @@ public:
     void indexByFile(std::string &fname, std::string path);
     LinkedList<IndexNode> *queryWord(const std::string &word);
     Trie();
+    ~Trie();
 };
